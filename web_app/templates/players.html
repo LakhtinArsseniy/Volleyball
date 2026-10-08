@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Гравці — VolleyVision</title>
+</head>
+
+<body>
+
+    <h1>🏐 VolleyVision</h1>
+
+    <h2>Гравці команди</h2>
+
+    <a href="{{ url_for('add_player') }}">
+        ➕ Додати гравця
+    </a>
+
+    <hr>
+
+    {% if players %}
+
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Ім'я</th>
+                    <th>Вік</th>
+                    <th>Позиція</th>
+                    <th>Дія</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for player in players %}
+
+                    <tr>
+                        <td>{{ player.number }}</td>
+                        <td>{{ player.name }}</td>
+                        <td>{{ player.age }}</td>
+                        <td>{{ player.position }}</td>
+
+                        <td>
+                            <form
+                                action="{{ url_for('delete_player', player_id=player.id) }}"
+                                method="POST"
+                            >
+                                <button type="submit">
+                                    🗑 Видалити
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    {% else %}
+
+        <p>Поки що гравців немає.</p>
+
+    {% endif %}
+
+</body>
+</html>

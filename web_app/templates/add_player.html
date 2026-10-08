@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Додати гравця — VolleyVision</title>
+</head>
+
+<body>
+
+    <h1>🏐 VolleyVision</h1>
+
+    <h2>Додати нового гравця</h2>
+
+    <form method="POST">
+
+        <p>
+            <label>Ім'я:</label><br>
+            <input
+                type="text"
+                name="name"
+                required
+            >
+        </p>
+
+        <p>
+            <label>Вік:</label><br>
+            <input
+                type="number"
+                name="age"
+                min="10"
+                max="60"
+                required
+            >
+        </p>
+
+        <p>
+            <label>Позиція:</label><br>
+
+            <select name="position" required>
+                <option value="">Оберіть позицію</option>
+                <option value="Догравальник">Догравальник</option>
+                <option value="Діагональний">Діагональний</option>
+                <option value="Центральний блокуючий">
+                    Центральний блокуючий
+                </option>
+                <option value="Зв'язуючий">Зв'язуючий</option>
+                <option value="Ліберо">Ліберо</option>
+            </select>
+        </p>
+
+        <p>
+            <label>Ігровий номер:</label><br>
+            <input
+                type="number"
+                name="number"
+                min="1"
+                max="99"
+                required
+            >
+        </p>
+
+        <button type="submit">
+            Зберегти
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{{ url_for('players') }}">
+        ← Назад до гравців
+    </a>
+
+</body>
+</html>
