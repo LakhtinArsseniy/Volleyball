@@ -1,3 +1,4 @@
+
 from datetime import datetime
 
 from flask_sqlalchemy import SQLAlchemy
@@ -19,7 +20,7 @@ class Player(db.Model):
         "PlayerStatistics",
         backref="player",
         lazy=True,
-        cascade="all, delete-orphan"
+        cascade="all, delete-orphan",
     )
 
     def __repr__(self):
@@ -47,14 +48,14 @@ class PlayerStatistics(db.Model):
     player_id = db.Column(
         db.Integer,
         db.ForeignKey("players.id"),
-        nullable=False
+        nullable=False,
     )
 
-    attacks = db.Column(db.Integer, default=0)
-    aces = db.Column(db.Integer, default=0)
-    blocks = db.Column(db.Integer, default=0)
-    receptions = db.Column(db.Integer, default=0)
-    errors = db.Column(db.Integer, default=0)
+    attacks = db.Column(db.Integer, default=0, nullable=False)
+    aces = db.Column(db.Integer, default=0, nullable=False)
+    blocks = db.Column(db.Integer, default=0, nullable=False)
+    receptions = db.Column(db.Integer, default=0, nullable=False)
+    errors = db.Column(db.Integer, default=0, nullable=False)
 
     def __repr__(self):
         return f"<Statistics player={self.player_id}>"
@@ -70,7 +71,8 @@ class OperationLog(db.Model):
     value = db.Column(db.String(255), nullable=True)
     timestamp = db.Column(
         db.DateTime,
-        default=datetime.utcnow
+        default=datetime.utcnow,
+        nullable=False,
     )
     description = db.Column(db.Text, nullable=True)
 
