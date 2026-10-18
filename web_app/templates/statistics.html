@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Статистика гравців — VolleyVision</title>
+</head>
+<body>
+    <h1>Статистика гравців</h1>
+
+    <form method="POST" action="{{ url_for('statistics') }}">
+        <label for="player_id">Гравець:</label>
+        <select id="player_id" name="player_id" required>
+            {% for player in players %}
+                <option value="{{ player.id }}">
+                    {{ player.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <p>
+            <label for="attacks">Атаки:</label>
+            <input id="attacks" type="number" name="attacks"
+                   min="0" value="0" required>
+        </p>
+
+        <p>
+            <label for="aces">Ейси:</label>
+            <input id="aces" type="number" name="aces"
+                   min="0" value="0" required>
+        </p>
+
+        <p>
+            <label for="blocks">Блоки:</label>
+            <input id="blocks" type="number" name="blocks"
+                   min="0" value="0" required>
+        </p>
+
+        <p>
+            <label for="receptions">Прийоми:</label>
+            <input id="receptions" type="number" name="receptions"
+                   min="0" value="0" required>
+        </p>
+
+        <p>
+            <label for="errors">Помилки:</label>
+            <input id="errors" type="number" name="errors"
+                   min="0" value="0" required>
+        </p>
+
+        <button type="submit">Зберегти статистику</button>
+    </form>
+
+    {% if statistics %}
+        <h2>Збережена статистика</h2>
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Гравець</th>
+                    <th>Атаки</th>
+                    <th>Ейси</th>
+                    <th>Блоки</th>
+                    <th>Прийоми</th>
+                    <th>Помилки</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in statistics %}
+                    <tr>
+                        <td>{{ item.player.name }}</td>
+                        <td>{{ item.attacks }}</td>
+                        <td>{{ item.aces }}</td>
+                        <td>{{ item.blocks }}</td>
+                        <td>{{ item.receptions }}</td>
+                        <td>{{ item.errors }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>
