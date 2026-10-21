@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Benchmark — VolleyVision{% endblock %}
+
+{% block content %}
+<header class="page-header">
+    <div>
+        <h1>Продуктивність алгоритмів</h1>
+        <p>Порівняння часу виконання на великому наборі даних</p>
+    </div>
+
+    <a class="button" href="{{ url_for('index') }}">← На головну</a>
+</header>
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">Записів у базі</span>
+        <strong>{{ "{:,}".format(dataset_count).replace(",", " ") }}</strong>
+        <span class="stat-description">Таблиця people_dataset</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Розмір вибірки</span>
+        <strong>{{ "{:,}".format(sample_count).replace(",", " ") }}</strong>
+        <span class="stat-description">Значення для тестування</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Тестів виконано</span>
+        <strong>{{ results|length }}</strong>
+        <span class="stat-description">Вимірювання швидкості</span>
+    </article>
+</section>
+
+<section class="content-card">
+    <h2>⏱️ Результати тестування</h2>
+
+    {% if results %}
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Алгоритм</th>
+                    <th>Елементів</th>
+                    <th>Час, секунд</th>
+                    <th>Призначення</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td><strong>{{ result.name }}</strong></td>
+                    <td>{{ "{:,}".format(result.count).replace(",", " ") }}</td>
+                    <td>{{ "%.6f"|format(result.seconds) }}</td>
+                    <td>{{ result.note }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>Немає даних для тестування.</p>
+    {% endif %}
+</section>
+
+<section class="content-card">
+    <h2>Як читати результати</h2>
+    <p>
+        Bubble Sort і Quick Sort порівнюються на однаковій невеликій
+        вибірці. Окремо Quick Sort тестується на більшій кількості значень.
+    </p>
+    <p>
+        Linear Search шукає відсутнє значення в не відсортованій вибірці.
+        Binary Search виконує пошук у відсортованій вибірці.
+    </p>
+    <p>
+        Результати залежать від комп'ютера, стану системи та вхідних даних.
+        Час попереднього сортування для Binary Search у вимір не включено.
+    </p>
+
+    <p>
+    Кожен алгоритм запускається п'ять разів.
+    У таблиці відображається медіанний час виконання.
+    </p>
+</section>
+{% endblock %}

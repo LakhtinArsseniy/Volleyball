@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Журнал операцій — VolleyVision{% endblock %}
+
+{% block content %}
+<header class="page-header">
+    <div>
+        <h1>Журнал операцій</h1>
+        <p>Історія дій, зареєстрованих у системі</p>
+    </div>
+    <a class="button" href="{{ url_for('index') }}">← На головну</a>
+</header>
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">Усього операцій</span>
+        <strong>{{ total_logs }}</strong>
+        <span class="stat-description">У базі даних</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Показано записів</span>
+        <strong>{{ logs|length }}</strong>
+        <span class="stat-description">Останні 100 операцій</span>
+    </article>
+</section>
+
+<section class="content-card">
+    <h2>📋 Історія дій</h2>
+
+    {% if logs %}
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Дата і час</th>
+                    <th>Структура</th>
+                    <th>Операція</th>
+                    <th>Значення</th>
+                    <th>Опис</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.id }}</td>
+                    <td>{{ log.timestamp.strftime('%d.%m.%Y %H:%M:%S') }}</td>
+                    <td>{{ log.structure }}</td>
+                    <td>{{ log.operation_type }}</td>
+                    <td>{{ log.value if log.value is not none else '—' }}</td>
+                    <td>{{ log.description or '—' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>Журнал поки порожній.</p>
+    {% endif %}
+</section>
+{% endblock %}

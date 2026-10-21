@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Панель керування — VolleyVision{% endblock %}
+
+{% block content %}
+<header class="page-header">
+    <div>
+        <h1>Панель керування</h1>
+        <p>Аналітика та огляд волейбольної команди</p>
+    </div>
+    <a class="button" href="{{ url_for('add_player') }}">+ Додати гравця</a>
+</header>
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">Гравці команди</span>
+        <strong>{{ players|length }}</strong>
+        <span class="stat-description">Зареєстровано в системі</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Записи статистики</span>
+        <strong>{{ records|length }}</strong>
+        <span class="stat-description">Збережені показники</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Середня результативність</span>
+        <strong>{{ average_efficiency }}</strong>
+        <span class="stat-description">За формулою ефективності</span>
+    </article>
+</section>
+
+<section class="content-card">
+    <h2>⚡ Швидкі дії</h2>
+
+    <div class="action-grid">
+        <a class="action-card" href="{{ url_for('players') }}">
+            <span class="action-icon">👥</span>
+            <strong>Гравці</strong>
+            <span>Переглянути склад команди та номери гравців</span>
+        </a>
+
+        <a class="action-card" href="{{ url_for('add_player') }}">
+            <span class="action-icon">➕</span>
+            <strong>Новий гравець</strong>
+            <span>Додати гравця до бази даних</span>
+        </a>
+
+
+        <a class="action-card" href="{{ url_for('analytics') }}">
+            <span class="action-icon">📈</span>
+            <strong>Аналітика команди</strong>
+            <span>Рейтинг гравців, порівняння показників та ефективність</span>
+        </a>
+
+
+        <a class="action-card" href="{{ url_for('statistics') }}">
+            <span class="action-icon">📊</span>
+            <strong>Статистика</strong>
+            <span>Внести та переглянути показники матчів</span>
+        </a>
+    </div>
+</section>
+
+<section class="content-card">
+    <h2>🏆 Останні записи статистики</h2>
+
+    {% if records %}
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Гравець</th>
+                    <th>Атаки</th>
+                    <th>Ейси</th>
+                    <th>Блоки</th>
+                    <th>Помилки</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records[:5] %}
+                <tr>
+                    <td>{{ record.player.name }}</td>
+                    <td>{{ record.attacks }}</td>
+                    <td>{{ record.aces }}</td>
+                    <td>{{ record.blocks }}</td>
+                    <td>{{ record.errors }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>Поки немає записів. Додай гравців і внеси їхню статистику, щоб побачити аналітику.</p>
+    <a class="button" href="{{ url_for('statistics') }}">Внести статистику</a>
+    {% endif %}
+</section>
+{% endblock %}

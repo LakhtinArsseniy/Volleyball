@@ -1,25 +1,32 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Гравці — VolleyVision</title>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block title %}Гравці — VolleyVision{% endblock %}
 
-    <h1>🏐 VolleyVision</h1>
-
-    <h2>Гравці команди</h2>
-
-    <a href="{{ url_for('add_player') }}">
-        ➕ Додати гравця
+{% block content %}
+<header class="page-header">
+    <div>
+        <h1>Гравці команди</h1>
+        <p>Керування складом волейбольної команди</p>
+    </div>
+    <a class="button" href="{{ url_for('add_player') }}">
+        + Додати гравця
     </a>
+</header>
 
-    <hr>
+<section class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">Усього гравців</span>
+        <strong>{{ players|length }}</strong>
+        <span class="stat-description">У базі даних</span>
+    </article>
+</section>
+
+<section class="content-card">
+    <h2>Склад команди</h2>
 
     {% if players %}
-
-        <table border="1" cellpadding="8">
+    <div class="table-wrapper">
+        <table>
             <thead>
                 <tr>
                     <th>№</th>
@@ -29,39 +36,27 @@
                     <th>Дія</th>
                 </tr>
             </thead>
-
             <tbody>
-
                 {% for player in players %}
-
-                    <tr>
-                        <td>{{ player.number }}</td>
-                        <td>{{ player.name }}</td>
-                        <td>{{ player.age }}</td>
-                        <td>{{ player.position }}</td>
-
-                        <td>
-                            <form
-                                action="{{ url_for('delete_player', player_id=player.id) }}"
-                                method="POST"
-                            >
-                                <button type="submit">
-                                    🗑 Видалити
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-
+                <tr>
+                    <td>{{ player.number }}</td>
+                    <td>{{ player.name }}</td>
+                    <td>{{ player.age }}</td>
+                    <td>{{ player.position }}</td>
+                    <td>
+                        <form method="POST"
+                              action="{{ url_for('delete_player', player_id=player.id) }}"
+                              onsubmit="return confirm('Видалити цього гравця?');">
+                            <button type="submit">Видалити</button>
+                        </form>
+                    </td>
+                </tr>
                 {% endfor %}
-
             </tbody>
         </table>
-
+    </div>
     {% else %}
-
-        <p>Поки що гравців немає.</p>
-
+    <p>Гравців поки немає. Додай першого гравця до команди.</p>
     {% endif %}
-
-</body>
-</html>
+</section>
+{% endblock %}

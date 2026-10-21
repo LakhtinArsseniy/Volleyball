@@ -1,75 +1,74 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>Додати гравця — VolleyVision</title>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block title %}Додати гравця — VolleyVision{% endblock %}
 
-    <h1>🏐 VolleyVision</h1>
+{% block content %}
+<header class="page-header">
+    <div>
+        <h1>Новий гравець</h1>
+        <p>Додай учасника до складу волейбольної команди</p>
+    </div>
+    <a class="button" href="{{ url_for('players') }}">← До гравців</a>
+</header>
 
-    <h2>Додати нового гравця</h2>
+<section class="form-card">
+    <h2>👤 Інформація про гравця</h2>
 
-    <form method="POST">
-
-        <p>
-            <label>Ім'я:</label><br>
+    <form method="POST" action="{{ url_for('add_player') }}">
+        <label>
+            Ім'я та прізвище
             <input
                 type="text"
                 name="name"
+                placeholder="Наприклад, Арсеній Лахтін"
                 required
+                maxlength="100"
             >
-        </p>
+        </label>
 
-        <p>
-            <label>Вік:</label><br>
-            <input
-                type="number"
-                name="age"
-                min="10"
-                max="60"
-                required
-            >
-        </p>
+        <div class="form-grid">
+            <label>
+                Вік
+                <input
+                    type="number"
+                    name="age"
+                    min="10"
+                    max="60"
+                    placeholder="18"
+                    required
+                >
+            </label>
 
-        <p>
-            <label>Позиція:</label><br>
+            <label>
+                Номер гравця
+                <input
+                    type="number"
+                    name="number"
+                    min="1"
+                    max="99"
+                    placeholder="7"
+                    required
+                >
+            </label>
+        </div>
 
+        <label>
+            Ігрова позиція
             <select name="position" required>
-                <option value="">Оберіть позицію</option>
+                <option value="">Обери позицію</option>
                 <option value="Догравальник">Догравальник</option>
                 <option value="Діагональний">Діагональний</option>
-                <option value="Центральний блокуючий">
-                    Центральний блокуючий
-                </option>
+                <option value="Центральний блокуючий">Центральний блокуючий</option>
                 <option value="Зв'язуючий">Зв'язуючий</option>
                 <option value="Ліберо">Ліберо</option>
             </select>
-        </p>
+        </label>
 
-        <p>
-            <label>Ігровий номер:</label><br>
-            <input
-                type="number"
-                name="number"
-                min="1"
-                max="99"
-                required
-            >
-        </p>
-
-        <button type="submit">
-            Зберегти
-        </button>
-
+        <div class="form-actions">
+            <button type="submit">✓ Зберегти гравця</button>
+            <a class="button button-secondary"
+               href="{{ url_for('players') }}">Скасувати</a>
+        </div>
     </form>
-
-    <br>
-
-    <a href="{{ url_for('players') }}">
-        ← Назад до гравців
-    </a>
-
-</body>
-</html>
+</section>
+{% endblock %}

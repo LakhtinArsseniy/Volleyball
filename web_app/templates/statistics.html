@@ -1,60 +1,102 @@
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Статистика гравців — VolleyVision</title>
-</head>
-<body>
-    <h1>Статистика гравців</h1>
+{% block title %}Статистика — VolleyVision{% endblock %}
 
-    <form method="POST" action="{{ url_for('statistics') }}">
-        <label for="player_id">Гравець:</label>
-        <select id="player_id" name="player_id" required>
-            {% for player in players %}
+{% block content %}
+
+<header class="page-header">
+    <div>
+        <h1>Статистика гравців</h1>
+        <p>Результативність та показники волейбольної команди</p>
+    </div>
+</header>
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">Записів статистики</span>
+        <strong>{{ records|length }}</strong>
+        <span class="stat-description">У базі даних</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Гравців у команді</span>
+        <strong>{{ players|length }}</strong>
+        <span class="stat-description">Доступні для обліку</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Середня кількість атак</span>
+        <strong>
+            {% if records %}
+                {{ (records|sum(attribute='attacks') / records|length)|round(1) }}
+            {% else %}
+                0
+            {% endif %}
+        </strong>
+        <span class="stat-description">На один запис статистики</span>
+    </article>
+</section>
+
+<section class="content-card">
+    <h2>➕ Додати статистику</h2>
+    <p>Обери гравця та введи його показники за матч.</p>
+
+    {% if players %}
+    <form method="POST" action="{{ url_for('statistics') }}" class="statistics-form">
+
+        <label>
+            Гравець
+            <select name="player_id" required>
+                <option value="">Обери гравця</option>
+                {% for player in players %}
                 <option value="{{ player.id }}">
-                    {{ player.name }}
+                    №{{ player.number }} — {{ player.name }}
                 </option>
-            {% endfor %}
-        </select>
+                {% endfor %}
+            </select>
+        </label>
 
-        <p>
-            <label for="attacks">Атаки:</label>
-            <input id="attacks" type="number" name="attacks"
-                   min="0" value="0" required>
-        </p>
+        <div class="form-grid">
+            <label>
+                🏐 Атаки
+                <input type="number" name="attacks" min="0" value="0" required>
+            </label>
 
-        <p>
-            <label for="aces">Ейси:</label>
-            <input id="aces" type="number" name="aces"
-                   min="0" value="0" required>
-        </p>
+            <label>
+                ⚡ Ейси
+                <input type="number" name="aces" min="0" value="0" required>
+            </label>
 
-        <p>
-            <label for="blocks">Блоки:</label>
-            <input id="blocks" type="number" name="blocks"
-                   min="0" value="0" required>
-        </p>
+            <label>
+                🛡️ Блоки
+                <input type="number" name="blocks" min="0" value="0" required>
+            </label>
 
-        <p>
-            <label for="receptions">Прийоми:</label>
-            <input id="receptions" type="number" name="receptions"
-                   min="0" value="0" required>
-        </p>
+            <label>
+                🎯 Прийоми
+                <input type="number" name="receptions" min="0" value="0" required>
+            </label>
 
-        <p>
-            <label for="errors">Помилки:</label>
-            <input id="errors" type="number" name="errors"
-                   min="0" value="0" required>
-        </p>
+            <label>
+                ❌ Помилки
+                <input type="number" name="errors" min="0" value="0" required>
+            </label>
+        </div>
 
         <button type="submit">Зберегти статистику</button>
     </form>
+    {% else %}
+    <p>Спочатку додай гравця на сторінці «Гравці».</p>
+    <a class="button" href="{{ url_for('add_player') }}">Додати гравця</a>
+    {% endif %}
+</section>
 
-    {% if statistics %}
-        <h2>Збережена статистика</h2>
-        <table border="1" cellpadding="8">
+<section class="content-card">
+    <h2>📊 Історія показників</h2>
+
+    {% if records %}
+    <div class="table-wrapper">
+        <table>
             <thead>
                 <tr>
                     <th>Гравець</th>
@@ -66,18 +108,22 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in statistics %}
-                    <tr>
-                        <td>{{ item.player.name }}</td>
-                        <td>{{ item.attacks }}</td>
-                        <td>{{ item.aces }}</td>
-                        <td>{{ item.blocks }}</td>
-                        <td>{{ item.receptions }}</td>
-                        <td>{{ item.errors }}</td>
-                    </tr>
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.player.name }}</td>
+                    <td>{{ record.attacks }}</td>
+                    <td>{{ record.aces }}</td>
+                    <td>{{ record.blocks }}</td>
+                    <td>{{ record.receptions }}</td>
+                    <td>{{ record.errors }}</td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+    {% else %}
+    <p>Записів поки немає. Додай перші показники вище.</p>
     {% endif %}
-</body>
-</html>
+</section>
+
+{% endblock %}

@@ -1,0 +1,1102 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg: #f5f7fc;
+    --surface: #ffffff;
+    --surface-hover: #f0edff;
+    --border: #e7eaf2;
+    --text: #20243a;
+    --muted: #858ba3;
+    --accent: #7058e8;
+    --accent-hover: #5b43d1;
+    --accent-light: #efebff;
+    --green: #18a875;
+    --red: #e25368;
+    --shadow: 0 5px 24px rgba(35, 42, 80, 0.045);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Бічна панель */
+
+.sidebar {
+    width: 255px;
+    flex-shrink: 0;
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 44px 4px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+}
+
+.brand-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
+    background: var(--accent-light);
+    font-size: 23px;
+}
+
+.nav-heading {
+    margin: 0 0 14px 12px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+}
+
+.navigation {
+    display: grid;
+    gap: 7px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 14px;
+    border-radius: 11px;
+    color: #737992;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--accent);
+    background: var(--accent-light);
+}
+
+.sidebar-footer {
+    display: grid;
+    gap: 7px;
+    margin-top: auto;
+    padding: 20px 8px 0;
+    border-top: 1px solid var(--border);
+    color: var(--text);
+    font-weight: 700;
+}
+
+.sidebar-footer small {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* Основна частина */
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.topbar {
+    min-height: 76px;
+    padding: 20px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.status-indicator {
+    padding: 8px 12px;
+    border-radius: 20px;
+    background: #e9f8f1;
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.page-content {
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 36px;
+}
+
+/* Заголовки */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    margin: 0 0 9px;
+    font-size: clamp(25px, 3vw, 32px);
+    font-weight: 800;
+    letter-spacing: -1.1px;
+}
+
+h2 {
+    margin: 0 0 20px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+}
+
+p {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+/* Кнопки */
+
+.button,
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.button:hover,
+button:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+/* Картки */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.stat-card,
+.content-card,
+.action-card,
+.form-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    box-shadow: var(--shadow);
+}
+
+.stat-card {
+    position: relative;
+    padding: 25px;
+    display: grid;
+    gap: 13px;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.stat-card strong {
+    color: var(--text);
+    font-size: 35px;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+}
+
+.stat-description {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.content-card,
+.form-card {
+    padding: 26px;
+    margin-bottom: 24px;
+}
+
+/* Швидкі дії */
+
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.action-card {
+    padding: 22px;
+    display: grid;
+    gap: 12px;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.action-card:hover {
+    border-color: #c8bfff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(112, 88, 232, 0.09);
+}
+
+.action-icon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--accent-light);
+    font-size: 24px;
+}
+
+.action-card strong {
+    font-size: 15px;
+}
+
+.action-card > span:last-child {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* Форми */
+
+label {
+    display: block;
+    margin-bottom: 18px;
+    color: #626982;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+input,
+select {
+    width: 100%;
+    margin-top: 9px;
+    padding: 13px 14px;
+    border: 1px solid #dfe3ee;
+    border-radius: 10px;
+    background: #ffffff;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(112, 88, 232, 0.1);
+}
+
+/* Таблиці */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    padding: 15px;
+    background: #f8f9fd;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+td {
+    padding: 16px 15px;
+    border-bottom: 1px solid #edf0f6;
+    color: #454b63;
+    font-size: 13px;
+}
+
+tbody tr:hover {
+    background: #faf9ff;
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+/* Адаптивність */
+
+@media (max-width: 1000px) {
+    .sidebar {
+        width: 220px;
+    }
+
+    .page-content {
+        padding: 25px;
+    }
+
+    .stats-grid,
+    .action-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .app-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 18px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+        margin-bottom: 22px;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
+    .navigation {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .topbar {
+        padding: 16px;
+        flex-wrap: wrap;
+    }
+
+    .page-content {
+        padding: 20px 14px;
+    }
+
+    .page-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .stats-grid,
+    .action-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content-card,
+    .form-card {
+        padding: 18px;
+    }
+}
+
+/* === VOLLEYVISION: спортивний фон === */
+
+body {
+    background:
+        radial-gradient(
+            ellipse at 85% 10%,
+            rgba(112, 88, 232, 0.13),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 15% 85%,
+            rgba(56, 189, 248, 0.11),
+            transparent 35%
+        ),
+        #f4f6fc;
+    background-attachment: fixed;
+}
+
+/* Декоративна сітка на фоні */
+.main-content {
+    position: relative;
+    isolation: isolate;
+}
+
+.main-content::before {
+    content: "";
+    position: fixed;
+    inset: 76px 0 0 255px;
+    z-index: -1;
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(
+            rgba(112, 88, 232, 0.035) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(112, 88, 232, 0.035) 1px,
+            transparent 1px
+        );
+
+    background-size: 36px 36px;
+
+    mask-image: linear-gradient(
+        to bottom right,
+        black,
+        transparent 85%
+    );
+}
+
+/* Картки трохи відокремлюються від фону */
+.stat-card,
+.content-card,
+.action-card,
+.form-card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow:
+        0 8px 32px rgba(40, 48, 90, 0.045),
+        0 1px 3px rgba(40, 48, 90, 0.04);
+}
+
+/* Декоративний акцент на верхній частині карток */
+.stat-card {
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 24px;
+    right: 24px;
+    height: 3px;
+    border-radius: 0 0 5px 5px;
+    background: linear-gradient(
+        90deg,
+        #7058e8,
+        #48c6ef
+    );
+}
+
+/* Плавна підсвітка при наведенні */
+.action-card:hover {
+    box-shadow:
+        0 14px 36px rgba(112, 88, 232, 0.12);
+    border-color: rgba(112, 88, 232, 0.35);
+}
+
+/* На вузьких екранах враховуємо ширину меню */
+@media (max-width: 650px) {
+    .main-content::before {
+        inset: 0;
+    }
+}
+
+/* ===== ФІОЛЕТОВА ТЕМА VOLLEYVISION ===== */
+
+:root {
+    --bg: #17112b;
+    --surface: #21183b;
+    --surface-hover: #302252;
+    --border: #3b2c5c;
+    --text: #f5f0ff;
+    --muted: #b9acd8;
+    --accent: #a78bfa;
+    --accent-hover: #c4b5fd;
+    --accent-light: #39275e;
+    --green: #6ee7b7;
+    --red: #fb7185;
+    --shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Основний фон */
+body {
+    background:
+        radial-gradient(ellipse at 80% 10%, rgba(139, 92, 246, .25), transparent 40%),
+        radial-gradient(ellipse at 15% 85%, rgba(91, 33, 182, .25), transparent 40%),
+        #17112b;
+    color: var(--text);
+}
+
+/* Бокове меню */
+.sidebar {
+    background: #1d1533;
+    border-right: 1px solid #3b2c5c;
+}
+
+.brand {
+    color: #ffffff;
+}
+
+.nav-link {
+    color: #c4b5fd;
+    transition: .2s ease;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    background: #493078;
+}
+
+/* Верхня панель */
+.topbar {
+    background: rgba(29, 21, 51, .94);
+    border-bottom: 1px solid #3b2c5c;
+    color: #c4b5fd;
+}
+
+/* Фіолетовий фон із сіткою */
+.main-content {
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+}
+
+.main-content::before {
+    content: "";
+    position: fixed;
+    inset: 76px 0 0 255px;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(167, 139, 250, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(167, 139, 250, .06) 1px, transparent 1px);
+    background-size: 36px 36px;
+}
+
+/* Картки — більше не білі */
+.stat-card,
+.content-card,
+.action-card,
+.form-card {
+    color: #f5f0ff;
+    background: rgba(40, 29, 68, .94);
+    border: 1px solid #49366d;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, .18);
+    backdrop-filter: blur(12px);
+}
+
+.stat-card::before {
+    background: linear-gradient(90deg, #a78bfa, #e879f9, #67e8f9);
+}
+
+.stat-label,
+.stat-description,
+p {
+    color: #b9acd8;
+}
+
+h1, h2, .stat-card strong {
+    color: #ffffff;
+}
+
+/* Помітні кнопки */
+.button,
+button {
+    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    color: #ffffff;
+    border: 1px solid rgba(216, 180, 254, .35);
+    box-shadow: 0 5px 18px rgba(139, 92, 246, .25);
+}
+
+.button:hover,
+button:hover {
+    background: linear-gradient(135deg, #a78bfa, #c084fc);
+    color: #ffffff;
+    box-shadow: 0 7px 24px rgba(168, 85, 247, .4);
+    transform: translateY(-2px);
+}
+
+/* Поля введення */
+input,
+select {
+    background: #19122d;
+    color: #ffffff;
+    border: 1px solid #514071;
+}
+
+input::placeholder {
+    color: #9282b5;
+}
+
+input:focus,
+select:focus {
+    border-color: #a78bfa;
+    box-shadow: 0 0 0 3px rgba(167, 139, 250, .18);
+}
+
+/* Таблиці */
+th {
+    background: #30224b;
+    color: #c4b5fd;
+}
+
+td {
+    color: #eee7ff;
+    border-bottom: 1px solid #3b2c5c;
+}
+
+tbody tr:hover {
+    background: #30224b;
+}
+
+/* Статус системи */
+.status-indicator {
+    background: #183d35;
+    color: #6ee7b7;
+}
+
+/* Нижня частина меню */
+.sidebar-footer {
+    border-top: 1px solid #3b2c5c;
+    color: #ffffff;
+}
+
+.sidebar-footer small {
+    color: #b9acd8;
+}
+
+/* Мобільна версія */
+@media (max-width: 650px) {
+    .main-content::before {
+        inset: 0;
+    }
+}
+
+/* ===== ДОДАТКОВІ ЕФЕКТИ VOLLEYVISION ===== */
+
+/* Активний пункт меню */
+.navigation .nav-link[href*="/players"],
+.navigation .nav-link[href*="/statistics"] {
+    border: 1px solid transparent;
+}
+
+
+/* Активний пункт поточної сторінки */
+.navigation .nav-link.active {
+    background: linear-gradient(110deg, #55358b, #382657);
+    color: #ffffff;
+    border: 1px solid #7653b8;
+    box-shadow:
+        inset 3px 0 #c4b5fd,
+        0 5px 18px rgba(139, 92, 246, .12);
+}
+
+
+/* Кнопки з плавною анімацією */
+.button,
+button {
+    transition: all .22s ease;
+    letter-spacing: .1px;
+}
+
+.button:active,
+button:active {
+    transform: scale(.97);
+}
+
+/* Кнопка видалення */
+form button {
+    background: #57243f;
+    border: 1px solid #9f416d;
+    color: #ffc2d8;
+    box-shadow: none;
+}
+
+form button:hover {
+    background: #a12d59;
+    border-color: #fb7185;
+    color: #ffffff;
+}
+
+/* Таблиці */
+.table-wrapper {
+    border: 1px solid #49366d;
+    border-radius: 13px;
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+th {
+    background: #30224b;
+    color: #d8c9ff;
+    padding: 17px 15px;
+}
+
+td {
+    background: rgba(40, 29, 68, .55);
+    padding: 17px 15px;
+    transition: background .2s ease;
+}
+
+tbody tr:nth-child(even) td {
+    background: rgba(54, 39, 86, .55);
+}
+
+tbody tr:hover td {
+    background: #49316d;
+}
+
+/* Картки при наведенні */
+.stat-card,
+.content-card,
+.action-card,
+.form-card {
+    transition: border-color .25s ease, box-shadow .25s ease,
+                transform .25s ease;
+}
+
+.stat-card:hover,
+.content-card:hover,
+.form-card:hover {
+    border-color: #7653b8;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, .25);
+}
+
+.action-card:hover {
+    border-color: #a78bfa;
+    transform: translateY(-4px);
+}
+
+/* Заголовки */
+h1 {
+    text-shadow: 0 0 28px rgba(167, 139, 250, .12);
+}
+
+/* Виділення тексту */
+::selection {
+    background: #8b5cf6;
+    color: #ffffff;
+}
+
+/* Смуга прокручування */
+::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #17112b;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #594080;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8b5cf6;
+}
+
+/* Форма статистики */
+.statistics-form {
+    margin-top: 24px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px 18px;
+}
+
+.statistics-form label {
+    color: #d8c9ff;
+}
+
+.statistics-form input,
+.statistics-form select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+.statistics-form button {
+    margin-top: 8px;
+    padding: 14px 22px;
+}
+
+@media (max-width: 800px) {
+    .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Форма додавання гравця */
+.form-card {
+    max-width: 850px;
+}
+
+.form-card form {
+    margin-top: 25px;
+}
+
+.form-card label {
+    color: #d8c9ff;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.button-secondary {
+    background: #30224b;
+    border-color: #594080;
+}
+
+.button-secondary:hover {
+    background: #49316d;
+}
+
+@media (max-width: 550px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+/* Графік ефективності */
+.analytics-bars {
+    display: grid;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.analytics-bar-row {
+    display: grid;
+    grid-template-columns: minmax(90px, 150px) minmax(50px, 1fr) 45px;
+    align-items: center;
+    gap: 14px;
+}
+
+.analytics-player {
+    color: #e9ddff;
+    overflow-wrap: anywhere;
+}
+
+.analytics-bar-track {
+    height: 13px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #17112b;
+}
+
+.analytics-bar {
+    height: 100%;
+    min-width: 0;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #7c3aed, #c084fc, #67e8f9);
+    box-shadow: 0 0 15px rgba(167, 139, 250, .25);
+    transition: width .4s ease;
+}
+
+.analytics-bar-row strong {
+    color: #e9ddff;
+    text-align: right;
+}
+
+@media (max-width: 550px) {
+    .analytics-bar-row {
+        grid-template-columns: 85px minmax(40px, 1fr) 30px;
+        gap: 8px;
+    }
+}
+
+/* ===== FIFO та LIFO ===== */
+
+.structure-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    align-items: start;
+}
+
+.structure-card {
+    min-width: 0;
+}
+
+.structure-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.structure-heading h2 {
+    margin-bottom: 4px;
+}
+
+.structure-heading p {
+    margin: 0;
+    font-size: 12px;
+}
+
+.structure-form {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.structure-form label {
+    margin-bottom: 0;
+    color: #d8c9ff;
+}
+
+.structure-form button {
+    width: 100%;
+    background: linear-gradient(135deg, #8b5cf6, #a855f7);
+    color: #fff;
+    border: 1px solid rgba(216, 180, 254, .35);
+    box-shadow: 0 5px 18px rgba(139, 92, 246, .2);
+}
+
+.structure-form button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #a78bfa, #c084fc);
+}
+
+.structure-form button:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.structure-remove {
+    margin-bottom: 28px;
+}
+
+.structure-card h3 {
+    color: #f5f0ff;
+    font-size: 15px;
+}
+
+.structure-hint {
+    font-size: 12px;
+    margin-top: -8px;
+}
+
+.structure-items {
+    display: grid;
+    gap: 9px;
+    margin-top: 16px;
+}
+
+.structure-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 13px;
+    border: 1px solid #49366d;
+    border-radius: 11px;
+    background: #30224b;
+    color: #f5f0ff;
+    overflow-wrap: anywhere;
+}
+
+.structure-index {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 27px;
+    height: 27px;
+    border-radius: 8px;
+    background: #49316d;
+    color: #e9ddff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.structure-tag {
+    margin-left: auto;
+    padding: 5px 8px;
+    border-radius: 7px;
+    background: #4b3473;
+    color: #e9ddff;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.structure-empty {
+    padding: 20px;
+    border: 1px dashed #594080;
+    border-radius: 11px;
+    color: #b9acd8;
+    text-align: center;
+    font-size: 13px;
+}
+
+.structure-message {
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border: 1px solid #7653b8;
+    border-radius: 12px;
+    background: #30224b;
+    color: #e9ddff;
+}
+
+@media (max-width: 850px) {
+    .structure-grid {
+        grid-template-columns: 1fr;
+    }
+}

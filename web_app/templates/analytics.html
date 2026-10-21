@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Аналітика — VolleyVision{% endblock %}
+
+{% block content %}
+
+<header class="page-header">
+    <div>
+        <h1>Аналітика команди</h1>
+        <p>Результативність, статистика та рейтинг волейболістів</p>
+    </div>
+</header>
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">Гравці команди</span>
+        <strong>{{ players|length }}</strong>
+        <span class="stat-description">У базі даних</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Гравці зі статистикою</span>
+        <strong>{{ analytics_data|length }}</strong>
+        <span class="stat-description">Мають записи показників</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Найкраща ефективність</span>
+        <strong>
+            {% if analytics_data %}
+                {{ analytics_data[0].efficiency }}
+            {% else %}
+                0
+            {% endif %}
+        </strong>
+        <span class="stat-description">Найвищий розрахований показник</span>
+    </article>
+</section>
+
+<section class="content-card">
+    <h2>🏆 Рейтинг гравців</h2>
+
+    {% if analytics_data %}
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Місце</th>
+                    <th>Гравець</th>
+                    <th>Атаки</th>
+                    <th>Ейси</th>
+                    <th>Блоки</th>
+                    <th>Прийоми</th>
+                    <th>Помилки</th>
+                    <th>Ефективність</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in analytics_data %}
+                <tr>
+                    <td>
+                        {% if loop.index == 1 %}
+                            🥇
+                        {% elif loop.index == 2 %}
+                            🥈
+                        {% elif loop.index == 3 %}
+                            🥉
+                        {% else %}
+                            {{ loop.index }}
+                        {% endif %}
+                    </td>
+
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.attacks }}</td>
+                    <td>{{ item.aces }}</td>
+                    <td>{{ item.blocks }}</td>
+                    <td>{{ item.receptions }}</td>
+                    <td>{{ item.errors }}</td>
+                    <td><strong>{{ item.efficiency }}</strong></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% else %}
+    <p>Поки немає даних для рейтингу.</p>
+    <p>Додай гравців і внеси їхні показники на сторінці статистики.</p>
+
+    <a class="button" href="{{ url_for('statistics') }}">
+        Додати статистику
+    </a>
+    {% endif %}
+</section>
+
+<section class="content-card">
+    <h2>📊 Порівняння ефективності</h2>
+
+    {% if analytics_data %}
+
+    {% set max_efficiency = [analytics_data[0].efficiency, 1]|max %}
+
+    <div class="analytics-bars">
+        {% for item in analytics_data %}
+
+        {% set bar_width = (item.efficiency / max_efficiency * 100)|round %}
+
+        <div class="analytics-bar-row">
+            <span class="analytics-player">
+                {{ item.name }}
+            </span>
+
+            <div class="analytics-bar-track">
+                <div class="analytics-bar"
+                    style="width: {{ bar_width | int }}%"></div>
+                            </div>
+
+            <strong>{{ item.efficiency }}</strong>
+        </div>
+
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <p>Графік з'явиться після додавання статистики гравців.</p>
+    {% endif %}
+</section>
+
+<section class="content-card">
+    <h2>ℹ️ Як розраховується ефективність</h2>
+
+    <p>Для порівняння гравців використовується формула:</p>
+
+    <div class="efficiency-formula">
+        Ефективність = Атаки + 2 × Ейси + 2 × Блоки
+        + Прийоми − 2 × Помилки
+    </div>
+
+    <p>
+        Ейси та блоки мають подвійну вагу, а помилки знижують
+        підсумковий результат. Це умовний показник для навчального
+        проєкту, а не офіційна волейбольна метрика.
+    </p>
+</section>
+
+{% endblock %}

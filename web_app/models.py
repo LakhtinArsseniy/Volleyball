@@ -1,5 +1,4 @@
-
-from datetime import datetime
+from datetime import datetime, timezone
 
 from flask_sqlalchemy import SQLAlchemy
 
@@ -71,7 +70,7 @@ class OperationLog(db.Model):
     value = db.Column(db.String(255), nullable=True)
     timestamp = db.Column(
         db.DateTime,
-        default=datetime.utcnow,
+        default=lambda: datetime.now(timezone.utc),
         nullable=False,
     )
     description = db.Column(db.Text, nullable=True)

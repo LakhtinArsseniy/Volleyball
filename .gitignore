@@ -35,3 +35,11 @@ analytics/saved_models/*
 
 # Logs
 *.log
+
+# Великий локальний набір даних
+/people_5m.csv
+/people_5m.csv.gz
+
+# Тимчасові файли SQLite
+/volleyball.db-shm
+/volleyball.db-wal

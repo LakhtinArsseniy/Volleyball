@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VolleyVision{% endblock %}</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar">
+            <a href="{{ url_for('index') }}" class="brand">
+                <span class="brand-icon">🏐</span>
+                <span>VolleyVision</span>
+            </a>
+
+            <p class="nav-heading">ГОЛОВНЕ МЕНЮ</p>
+
+
+
+            <nav class="navigation">
+                <a href="{{ url_for('index') }}"
+                class="nav-link {% if request.endpoint == 'index' %}active{% endif %}">
+                    🏠 Головна
+                </a>
+
+                <a href="{{ url_for('players') }}"
+                class="nav-link {% if request.endpoint == 'players' %}active{% endif %}">
+                    👥 Гравці
+                </a>
+
+                <a href="{{ url_for('add_player') }}"
+                class="nav-link {% if request.endpoint == 'add_player' %}active{% endif %}">
+                    ➕ Додати гравця
+                </a>
+
+                <a href="{{ url_for('statistics') }}"
+                class="nav-link {% if request.endpoint == 'statistics' %}active{% endif %}">
+                    📊 Статистика
+                </a>
+
+                <a href="{{ url_for('analytics') }}"
+                class="nav-link {% if request.endpoint == 'analytics' %}active{% endif %}">
+                    📈 Аналітика
+                </a>
+
+
+                <a href="{{ url_for('operation_logs') }}"
+                class="nav-link {% if request.endpoint == 'operation_logs' %}active{% endif %}">
+                    📜 Журнал операцій
+                </a>
+
+
+
+                <a href="{{ url_for('queue_page') }}"
+                class="nav-link {% if request.endpoint == 'queue_page' %}active{% endif %}">
+                    🧱 Черга та стек
+                </a>
+
+
+                <a href="{{ url_for('benchmark') }}"
+                class="nav-link {% if request.endpoint == 'benchmark' %}active{% endif %}">
+                    ⚡ Benchmark
+                </a>
+            </nav>
+
+
+
+            <div class="sidebar-footer">
+                <span>VolleyVision</span>
+                <small>Аналітика волейбольної команди</small>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="topbar">
+                <span>Система аналізу волейболу</span>
+                <span class="status-indicator">● Система активна</span>
+            </header>
+
+            <section class="page-content">
+                {% block content %}{% endblock %}
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

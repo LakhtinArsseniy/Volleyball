@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Черга та стек — VolleyVision{% endblock %}
+
+{% block content %}
+
+<header class="page-header">
+    <div>
+        <h1>Структури даних</h1>
+        <p>Інтерактивна демонстрація FIFO-черги та LIFO-стека</p>
+    </div>
+</header>
+
+{% if message %}
+<section class="structure-message">
+    {{ message }}
+</section>
+{% endif %}
+
+<section class="stats-grid">
+    <article class="stat-card">
+        <span class="stat-label">Елементів у черзі</span>
+        <strong>{{ queue_items|length }}</strong>
+        <span class="stat-description">Принцип FIFO</span>
+    </article>
+
+    <article class="stat-card">
+        <span class="stat-label">Елементів у стеку</span>
+        <strong>{{ stack_items|length }}</strong>
+        <span class="stat-description">Принцип LIFO</span>
+    </article>
+</section>
+
+<section class="structure-grid">
+
+    <article class="content-card structure-card">
+        <div class="structure-heading">
+            <span class="action-icon">📥</span>
+            <div>
+                <h2>FIFO — черга</h2>
+                <p>Першим прийшов — першим вийшов.</p>
+            </div>
+        </div>
+
+        <form method="POST" class="structure-form">
+            <input type="hidden" name="action" value="queue_add">
+
+            <label>
+                Значення елемента
+                <input
+                    type="text"
+                    name="value"
+                    placeholder="Наприклад, Гравець 7"
+                    maxlength="100"
+                    required
+                >
+            </label>
+
+            <button type="submit">+ Додати в чергу</button>
+        </form>
+
+        <form method="POST" class="structure-form structure-remove">
+            <input type="hidden" name="action" value="queue_remove">
+            <button type="submit" {% if not queue_items %}disabled{% endif %}>
+                Вилучити перший елемент
+            </button>
+        </form>
+
+        <h3>Поточна черга</h3>
+        <p class="structure-hint">Перший елемент буде вилучено наступним.</p>
+
+        {% if queue_items %}
+        <div class="structure-items">
+            {% for item in queue_items %}
+            <div class="structure-item">
+                <span class="structure-index">{{ loop.index }}</span>
+                <span>{{ item }}</span>
+                {% if loop.first %}
+                    <span class="structure-tag">Перший</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="structure-empty">Черга порожня. Додай перший елемент.</p>
+        {% endif %}
+    </article>
+
+    <article class="content-card structure-card">
+        <div class="structure-heading">
+            <span class="action-icon">📚</span>
+            <div>
+                <h2>LIFO — стек</h2>
+                <p>Останнім прийшов — першим вийшов.</p>
+            </div>
+        </div>
+
+        <form method="POST" class="structure-form">
+            <input type="hidden" name="action" value="stack_add">
+
+            <label>
+                Значення елемента
+                <input
+                    type="text"
+                    name="value"
+                    placeholder="Наприклад, Гравець 10"
+                    maxlength="100"
+                    required
+                >
+            </label>
+
+            <button type="submit">+ Додати в стек</button>
+        </form>
+
+        <form method="POST" class="structure-form structure-remove">
+            <input type="hidden" name="action" value="stack_remove">
+            <button type="submit" {% if not stack_items %}disabled{% endif %}>
+                Вилучити верхній елемент
+            </button>
+        </form>
+
+        <h3>Поточний стек</h3>
+        <p class="structure-hint">Верхній елемент буде вилучено наступним.</p>
+
+        {% if stack_items %}
+        <div class="structure-items">
+            {% for item in stack_items|reverse %}
+            <div class="structure-item">
+                <span class="structure-index">{{ loop.index }}</span>
+                <span>{{ item }}</span>
+                {% if loop.first %}
+                    <span class="structure-tag">Верхівка</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="structure-empty">Стек порожній. Додай перший елемент.</p>
+        {% endif %}
+    </article>
+
+</section>
+
+<section class="content-card">
+    <h2>💡 У чому різниця?</h2>
+
+    <p>
+        <strong>FIFO:</strong> якщо додати A, потім B і C,
+        елементи вилучатимуться в порядку A → B → C.
+    </p>
+
+    <p>
+        <strong>LIFO:</strong> якщо додати A, потім B і C,
+        елементи вилучатимуться в порядку C → B → A.
+    </p>
+</section>
+
+{% endblock %}
